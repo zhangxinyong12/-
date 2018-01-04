@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>回文数</h2>
+    <p>在自然数中，有一种从左往右，从右往左读起来都相同的数，叫做“回文数”。 </p>
+    <p>例如11，101,121,1111等如果有一个数不是回文数，比如说19，那么把它左右两边顺序的数相加：19+91=110，继续相加：110+011=121,得到121就是回文数，</p>  
+    <p> 再比如253：253+352=605,605+506=1111,1111就是回文数，那么所有的自然数都有这样的规律吗？</p> 
+    <div>
+        <h4>输入 一个数字测试 是否是回文数</h4>
+        <p><input type="text" id="number"></p>
+        <p><button id="btn">测试</button></p>
+    </div> 
+    <div id="jisuan"></div>
+</body>
+<script>
+    var number=document.querySelector('#number');
+    var btn=document.querySelectorAll('button')[0];
+    var jisuan=document.getElementById('jisuan');
+    var reg=new RegExp('^[0-9]*$');
+    btn.onclick=function(){
+        jisuan.innerHTML='';
+        let x=number.value;
+        if(!reg.test(x)){
+            alert('请输入数字');
+            return;
+        };
+        isNumber(x);
+    };
+    //颠倒
+    var diandao=function(x){
+        x=x.toString();
+        x=x.split('').reverse().join('');
+        x=Number(x);
+        return x;
+    };
+    //创建dome
+    var creat=function(x){
+        var p=document.createElement('p');
+        var span1=document.createElement('span');
+        span1.innerHTML=x+'+';
+        var span2=document.createElement('span');
+        span2.innerHTML=diandao(x)+'=';
+        var span3=document.createElement('span');
+        span3.innerHTML=x+diandao(x);
+        p.appendChild(span1);
+        p.appendChild(span2);
+        p.appendChild(span3);
+        jisuan.appendChild(p)
+    }
+    var y=0;
+    var isNumber=function(x){
+        x=Number(x);
+        // console.log(x==diandao(x))
+        if(x==diandao(x)){
+        console.log(x+'是回文数;运行'+y+'次');
+            y=0;
+           
+            return;
+        }else{
+            y++;
+            creat(x);
+            x=x+diandao(x);
+            isNumber(x)
+        }
+    };
+    // for(var i=0;i<10000;i++){
+    //     isNumber(i)
+    // }
+    // var m=0;
+    // setInterval(function(){
+    //     m++;
+    //     isNumber(m)
+    // },1000)
+</script>
+</html>
